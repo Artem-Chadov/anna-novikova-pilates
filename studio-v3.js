@@ -3,7 +3,8 @@
   const syncHeader = () => {
     document.body.classList.toggle('scrolled',window.scrollY>24);
     document.documentElement.style.setProperty('--header-bottom',`${header.getBoundingClientRect().bottom+8}px`);
-    const active = sections.filter(s => (s.querySelector('h2') || s).getBoundingClientRect().top <= header.getBoundingClientRect().bottom+32).pop();
+    const atPageEnd = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+    const active = atPageEnd ? sections[sections.length - 1] : sections.filter(s => (s.querySelector('h2') || s).getBoundingClientRect().top <= header.getBoundingClientRect().bottom+32).pop();
     links.forEach(a => {
       if (active && a.hash === '#' + active.id) a.setAttribute('aria-current','location');
       else a.removeAttribute('aria-current');
