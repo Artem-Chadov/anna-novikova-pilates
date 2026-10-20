@@ -28,4 +28,17 @@
     target.focus({preventScroll:true});
     target.addEventListener('blur', () => target.removeAttribute('tabindex'), {once:true});
   }));
+  const map = document.querySelector('.studio-map');
+  const mapContainer = document.querySelector('.map-container');
+  if (map && mapContainer) {
+    const syncMapFocus = () => {
+      mapContainer.classList.toggle('map-focused', document.activeElement === map);
+    };
+    const scheduleMapFocus = () => setTimeout(syncMapFocus, 0);
+    map.addEventListener('focus', scheduleMapFocus);
+    map.addEventListener('blur', scheduleMapFocus);
+    document.addEventListener('focusin', scheduleMapFocus);
+    window.addEventListener('focus', scheduleMapFocus);
+    window.addEventListener('blur', scheduleMapFocus);
+  }
 })();
